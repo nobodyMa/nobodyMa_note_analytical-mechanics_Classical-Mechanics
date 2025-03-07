@@ -1,0 +1,725 @@
+\ifx\allfiles\undefined
+\documentclass[12pt, a4paper, oneside, UTF8]{ctexbook}  %  这一句是新增加的
+\newcommand{\pa}{\partial}
+
+
+
+
+
+\begin{document}
+%\input{../config/cover} % 单独编译时，其实不用编译封面目录之类的，如需要不注释这句即可
+\else
+\fi
+%  ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ 正文部分
+\chapter{}
+\section{}
+\begin{add}
+\[
+\text{什么是分析力学}\begin{cases}
+    \text{物理：经典力学---最小作用量原理、对称性、守恒律}\\
+    \text{力学：理论力学}\begin{cases}
+        \text{运动学---几何}\\
+        \text{动力学}\\
+        \text{动理学}
+    \end{cases}\text{---工程应用}\\
+    \text{数学}
+\end{cases}
+\]
+本课程偏向力学讲法，跳过后续分析课程的内容，只考虑光滑、黎曼可积
+\end{add}
+\subsection{时空}
+\begin{defn}
+Newton 时空 \(S=\underbrace{T}_{\text{时间}}\times
+\underbrace{X}_{\text{空间}}\)
+
+设G是一个群，X是非定集合
+\begin{gather*}
+    \mu: G\times X\rightarrow x\\
+    (g,x)\rightarrow g x
+\end{gather*}
+(1)若对任何x，y
+
+
+\end{defn}
+\begin{corollary}
+当G是一个线性空间时，G-torsor也叫仿射空间
+\begin{itemize}
+    \item $G=\mathbb{R}$,时间轴T就是一个G-torsor
+    \item $G=\mathbb{R}^3$,空间X就是一个G-torsor
+    \item V是一个线性空间，$G=GL(V)$，
+    记B是V的所有基构成的集合，设$\dim_{\mathbb{R}}V=n$,基$B=\{e_1,\dots,e_n\}$线性无关，B是一个G-torsor
+    \item 势能$F=(F_x,F_y,F_z)$满足存在u
+    \(F_x=-\frac{\pa u}{\pa x}\quad F_y=-\frac{\pa u}{\pa y}\quad F_z=-\frac{\pa u}{\pa z}\)
+    \(U(p)=\int_{p_0}^{p}F_x\,dx+F_y\,dy+F_z\,dz\)
+\end{itemize}
+\end{corollary}
+\begin{thm}
+欧氏空间的空间平移和旋转不变性
+
+考虑$n$维欧氏空间$\mathbb{R}^n$，定义任意两点$\vec{x}, \vec{y} \in \mathbb{R}^n$间的距离为：
+\[
+d(\vec{x}, \vec{y}) = \|\vec{x} - \vec{y}\| = \sqrt{\sum_{i=1}^n (x_i - y_i)^2}
+\]
+
+\paragraph{1. 平移不变性}
+
+设$\vec{a} \in \mathbb{R}^n$为平移向量，平移变换$T_{\vec{a}}: \mathbb{R}^n \to \mathbb{R}^n$定义为：
+\[
+T_{\vec{a}}(\vec{x}) = \vec{x} + \vec{a}
+\]
+
+\textbf{命题：}平移变换保持距离不变，即：
+\[
+d(T_{\vec{a}}(\vec{x}), T_{\vec{a}}(\vec{y})) = d(\vec{x}, \vec{y})
+\]
+
+\begin{proof}
+计算平移后的距离：
+\begin{align*}
+d(T_{\vec{a}}(\vec{x}), T_{\vec{a}}(\vec{y})) 
+&= \|(\vec{x} + \vec{a}) - (\vec{y} + \vec{a})\| \\
+&= \|\vec{x} - \vec{y} + (\vec{a} - \vec{a})\| \\
+&= \|\vec{x} - \vec{y}\| \quad \text{（向量加法消去律）} \\
+&= d(\vec{x}, \vec{y})
+\end{align*}
+\end{proof}
+
+\paragraph{2. 旋转不变性}
+
+设$\vec{R}$为$n \times n$正交矩阵（$\vec{R}^\top \vec{R} = \vec{I}_n$且$\det \vec{R} = 1$），旋转变换$L_{\vec{R}}: \mathbb{R}^n \to \mathbb{R}^n$定义为：
+\[
+L_{\vec{R}}(\vec{x}) = \vec{R}\vec{x}
+\]
+
+\textbf{命题：}旋转变换保持距离不变，即：
+\[
+d(L_{\vec{R}}(\vec{x}), L_{\vec{R}}(\vec{y})) = d(\vec{x}, \vec{y})
+\]
+
+\begin{proof}
+利用正交矩阵保持内积的性质：
+\begin{align*}
+d(L_{\vec{R}}(\vec{x}), L_{\vec{R}}(\vec{y}))
+&= \|\vec{R}\vec{x} - \vec{R}\vec{y}\|= \|\vec{R}(\vec{x} - \vec{y})\| \\
+&= \sqrt{(\vec{R}(\vec{x} - \vec{y}))^\top (\vec{R}(\vec{x} - \vec{y}))} \\
+&= \sqrt{(\vec{x} - \vec{y})^\top \vec{R}^\top \vec{R}(\vec{x} - \vec{y})} \\
+&= \sqrt{(\vec{x} - \vec{y})^\top \vec{I}_n (\vec{x} - \vec{y})} \quad \text{（正交性$\vec{R}^\top \vec{R} = \vec{I}_n$）} \\
+&= \|\vec{x} - \vec{y}\|= d(\vec{x}, \vec{y})
+\end{align*}
+\end{proof}
+\end{thm}
+\begin{defn}
+    惯性系
+
+    若在一个参考系中，不受力的质点做匀速直线运动，$x''(t)=0$，则称这个参考系是惯性系。
+\end{defn}
+\begin{thm}
+    惯性系之间的变换一点取如下形式
+    \[\tilde{x}=\varphi(x)=Px+(x_0+vt)\]
+\end{thm}
+\begin{corollary}
+    Galileo变换
+    \[
+\begin{pmatrix}
+\tilde{\mathbf{r}} \\
+\tilde{t}
+\end{pmatrix}=
+\begin{pmatrix}
+\mathbf{P} & -\mathbf{v} \\
+\mathbf{0} & 1
+\end{pmatrix}
+\begin{pmatrix}
+\mathbf{r} \\
+t
+\end{pmatrix}
+\]
+\end{corollary}
+\begin{add}
+    Galileo变换的全体构成一个群G,\(S=T\times X\)中所有惯性系构成的集合是一个G-torsor
+\end{add}
+\subsection{约束}
+\begin{proposition}
+    质点的轨迹$x(t)$
+
+    由NL2，应该有\(x''(t)=f(t,x(t),x'(t),x''(t)\;?\;,\dots)\)
+\end{proposition}
+\subsubsection*{约束的分类}
+经典力学中，约束根据数学形式与物理性质分为以下类型：
+
+\paragraph*{1. 完整约束（Holonomic Constraints）}
+\subparagraph*{定义}
+数学形式为仅含广义坐标 \(\mathbf{q} = (q_1, \dots, q_n)\) 和时间 \(t\) 的方程：
+\begin{equation}
+    f(\mathbf{q}, t) = 0,
+\end{equation}
+且不显含速度 \(\dot{q}_i\)，可通过积分消除自由度。
+
+\subparagraph*{分类}
+\begin{itemize}
+    \item \textbf{定常约束（Scleronomic）}: \( f(\mathbf{q}) = 0 \)。\par
+    例：固定摆长的单摆 \( x^2 + y^2 = l^2 \)。
+    \item \textbf{非定常约束（Rheonomic）}: \( f(\mathbf{q}, t) = 0 \)。\par
+    例：摆长变化的单摆 \( x^2 + y^2 = l(t)^2 \)。
+\end{itemize}
+
+\paragraph*{2. 非完整约束（Nonholonomic Constraints）}
+\subparagraph*{定义}
+无法表示为坐标和时间的方程，通常为不可积的微分形式：
+\begin{equation}
+    \sum_{i=1}^n a_i(\mathbf{q}, t) \, dq_i + a_0(\mathbf{q}, t) \, dt = 0 \quad (\text{不满足 Frobenius 条件})
+\end{equation}
+
+\subparagraph*{分类}
+\begin{itemize}
+    \item \textbf{线性非完整约束}: \( \sum_{i=1}^n a_i(\mathbf{q}, t) \dot{q}_i + a_0(\mathbf{q}, t) = 0 \)。\par
+    例：冰刀仅沿刀刃方向滑动（横向速度为零），\(
+        \dot{x} \sin \theta - \dot{y} \cos \theta = 0
+    \)。
+    其中：\((x, y)\) 为冰刀的位置坐标，\(\theta\) 为冰刀刀刃方向与 \(x\)-轴的夹角。\par
+    例：平面滚球见例\ref{pingmiangunqiu}
+    \item \textbf{非线性非完整约束}: \( f(\mathbf{q}, \dot{\mathbf{q}}, t) = 0 \)。\par
+    例：涉及速度平方项的约束。
+\end{itemize}
+
+\paragraph*{3. 理想约束（Ideal Constraints）}
+\subparagraph*{定义}
+约束力 \(\mathbf{R}_i\) 在虚位移 \(\delta \mathbf{r}_i\) 上做功为零：
+\begin{equation}
+    \sum_{i=1}^n \mathbf{R}_i \cdot \delta \mathbf{r}_i = 0
+\end{equation}
+
+\subparagraph*{特点}
+\begin{itemize}
+    \item 约束力与虚位移正交（如光滑接触的法向力）。
+    \item 例：刚体无滑滚动、不可伸长的绳索。
+\end{itemize}
+
+\paragraph*{4. 非理想约束（Nonideal Constraints）}
+\subparagraph*{定义}
+约束力的虚功非零：
+\begin{equation}
+    \sum_{i=1}^n \mathbf{R}_i \cdot \delta \mathbf{r}_i \neq 0
+\end{equation}
+
+\subparagraph*{特点}
+\begin{itemize}
+    \item 需显式引入运动方程（如摩擦力）。\par
+    例：粗糙斜面的滑动、空气阻力。
+\end{itemize}
+\begin{add}
+    Pfaffian 形式的定义
+
+Pfaffian 形式（Pfaffian Form）是微分几何中的一个重要概念，在经典力学中常用于描述约束条件。它通过一次微分形式（1-form）表达对系统运动的限制，其一般形式为：
+\[
+\omega = \sum_{i=1}^n a_i(\mathbf{q}, t) \, dq_i + a_0(\mathbf{q}, t) \, dt
+\]
+其中：
+\begin{itemize}
+    \item \(\mathbf{q} = (q_1, q_2, \dots, q_n)\) 为广义坐标，
+    \item \(a_i(\mathbf{q}, t)\) 和 \(a_0(\mathbf{q}, t)\) 是坐标和时间的函数。
+\end{itemize}
+
+在力学中，Pfaffian 形式通常表示对速度的约束。通过除以 \(dt\)，可将其写为速度的线性组合：
+\[
+\sum_{i=1}^n a_i(\mathbf{q}, t) \, \dot{q}_i + a_0(\mathbf{q}, t) = 0
+\]
+\end{add}
+\begin{example}\label{pingmiangunqiu}
+    \textbf{平面滚球}
+
+\textbf{平面滚球的状态表示}
+
+球的状态可以用以下变量表示：
+\begin{itemize}
+    \item \textbf{球心坐标}：$(x, y)$ 表示球心在平面上的位置。
+    \item \textbf{欧拉角}：$(\varphi, \theta, \psi)$ 表示球的姿态，其中：
+    \begin{itemize}
+        \item $\varphi$ 是绕 $z$ 轴的进动角（precession），
+        \item $\theta$ 是绕 $x$ 轴的章动角（nutation），
+        \item $\psi$ 是绕 $z$ 轴的自旋角（spin）。
+    \end{itemize}
+\end{itemize}
+
+\textbf{非完整约束条件}
+
+球在平面上滚动而无滑动的条件可以用以下约束方程表示：
+\[
+\begin{cases}
+\dot{x} = r (\omega_y \cos \psi - \omega_x \sin \psi), \\
+\dot{y} = r (\omega_x \cos \psi + \omega_y \sin \psi),
+\end{cases}
+\]
+其中：
+\begin{itemize}
+    \item $r$ 是球的半径，
+    \item $\omega_x$ 和 $\omega_y$ 是球绕 $x$ 和 $y$ 轴的角速度分量。
+\end{itemize}
+
+\textbf{欧拉角与角速度的关系}
+
+欧拉角的导数与角速度之间的关系可以通过以下公式表示：
+\[
+\begin{cases}
+\omega_x = \dot{\varphi} \sin \theta \sin \psi + \dot{\theta} \cos \psi, \\
+\omega_y = \dot{\varphi} \sin \theta \cos \psi - \dot{\theta} \sin \psi, \\
+\omega_z = \dot{\varphi} \cos \theta + \dot{\psi}.
+\end{cases}
+\]
+
+\textbf{状态方程}
+
+综合以上关系，球的状态方程可以表示为：
+\[
+\begin{cases}
+\dot{x} = r (\dot{\varphi} \sin \theta \cos \psi - \dot{\theta} \sin \psi), \\
+\dot{y} = r (\dot{\varphi} \sin \theta \sin \psi + \dot{\theta} \cos \psi), \\
+\dot{\varphi} = \omega_x \sin \psi + \omega_y \cos \psi, \\
+\dot{\theta} = \omega_x \cos \psi - \omega_y \sin \psi, \\
+\dot{\psi} = \omega_z - \dot{\varphi} \cos \theta.
+\end{cases}
+\]
+\end{example}
+\subsection{广义坐标}
+考虑\(\mathbb{R}^n\)中的\(m\)个约束\(g_\alpha(x)=0\; ,\; \alpha=1,\cdots,m\)
+\begin{defn}[k维曲面]
+    设 $ M $ 是 $\mathbb{R}^n$ 的子集。若存在 $ k \in \mathbb{N} $，$ k \leq n $，使得对于任意的 $ x_0 \in M $，存在 $ x_0 $ 在 $\mathbb{R}^n$ 中的开邻域 $\mathcal{U}$，以及一个微分同胚
+    $
+    \varphi: \mathcal{U} \to I,
+    $
+    其中 $ I = \{ q \in \mathbb{R}^n \mid q = (q_1, \dots, q_n), |q_i| < 1, i = 1, \dots, n \} $，且满足：
+    $
+    \varphi(x) = (q_1(x), \dots, q_n(x)),
+    $
+    使得对于所有 $ x \in \mathcal{U} \cap M $，有
+    $
+    (q_{k+1}(x), \dots, q_n(x)) = 0,
+    $
+    并且雅可比矩阵
+    $
+    \left( \frac{\partial q_i}{\partial x_j} \right)_{1 \leq i,j \leq n}
+    $
+    在每一点 $ x \in \mathcal{U} \cap M $ 处满秩（即其前 $ k $ 列是线性无关的）。则称 $ M $ 是 $\mathbb{R}^n$ 中的一个 $ k $-维光滑曲面。
+    \end{defn}
+\begin{example}
+    球面\((k =n-1)\)
+    \(x_1^2 + x_2^2 + \dots + x_n^2 = r^2\),其中\(r>0\) 是球面的半径。
+\end{example}
+\begin{example}
+    环面\((k=n-2)\)
+    \(\left( \sqrt{x_1^2 + x_2^2 + \dots + x_{n-1}^2} - R \right)^2 + x_n^2 = r^2
+\)其中 \(R>r>0\) 是环面的主半径和副半径。
+\end{example}
+\begin{thm}
+    正则值定理
+
+    设 $ F \in C^\infty(\mathbb{R}^n, \mathbb{R}) $，定义 $ M = F^{-1}(0) $。若对任意 $ x \in M $，有 $ dF_x \neq 0 $，则 $ M $ 是一个 $ (k=n-1) $ 维光滑曲面。
+\end{thm}
+广义坐标的定义如下：
+
+设 $ M $ 为一个 $ n $-维光滑流形。若 $ M $ 上的一个开集 $ U $ 与 $ \mathbb{R}^n $ 之间
+存在一个平滑的同胚映射 $ \varphi: U \rightarrow \mathbb{R}^n $，则称 $ (U, \varphi) $ 
+为 $ M $ 上的一组广义坐标，记作 $ (q^1, q^2, \dots, q^n) $，其中 $ q^i $ 是映射 $ \varphi $ 的分量函数。
+
+更正式地，可以表示为：
+\[
+\varphi: U \subset M \rightarrow \mathbb{R}^n, \quad p \mapsto (q^1(p), q^2(p), \dots, q^n(p))
+\]
+其中，雅可比矩阵 $ \left( \frac{\partial \varphi^i}{\partial x^j} \right) $ 在每一点 $ p \in U $ 处满秩。
+\begin{defn}
+曲线坐标系中的速度（切向量）
+
+在曲线坐标系中，曲线的速度（切向量）可以表示为：
+\[
+\mathbf{v} = \frac{d\mathbf{r}}{dt} = \sum_{i=1}^{n} \frac{dx^i}{dt} \frac{\partial \mathbf{r}}{\partial x^i}
+\]
+其中，\(\mathbf{r}\) 是位置矢量，\(x^i\) 是曲线坐标系的坐标，\(t\) 是参数（通常是时间）。
+\end{defn}
+\begin{defn}
+    流形的切丛
+
+设 \(M\) 是一个 \(n\) 维光滑流形，\(p \in M\) 是流形上的一点。流形 \(M\) 在点 \(p\) 处的切空间 \(T_p M\) 是
+所有在 \(p\) 点处的切向量的集合。流形 \(M\) 的切丛 \(TM\) 定义为所有切空间的并集：
+\[
+TM = \bigcup_{p \in M} T_p M
+\]
+切丛 \(TM\) 是一个 \(2n\) 维的光滑流形，其局部坐标可以表示为 \((x^1, \dots, x^n, v^1, \dots, v^n)\)，
+其中 \((x^1, \dots, x^n)\) 是流形 \(M\) 上的局部坐标，\((v^1, \dots, v^n)\) 是切空间 \(T_p M\) 中的向量分量。
+\end{defn}
+\begin{defn}
+    在曲线坐标系中，曲线的加速度是速度（切向量）对时间的导数。
+
+    直观上，加速度可以表示为：
+    \[
+    \mathbf{a} = \frac{d\mathbf{v}}{dt} = \frac{d^2\mathbf{r}}{dt^2}
+    \]
+
+    加速度具体表达式为：
+\begin{align*}
+    a_i=\ddot{x_i}&=\dv{t}\left( \sum_{\alpha=1}^{k}\frac{\pa x_i}{\pa q_\alpha}\dot{q_\alpha}\right)\\
+    &\begin{aligned}=\sum_{\alpha=1}^{k}\frac{\pa x_i}{\pa q_\alpha}
+        &\ddot{q_\alpha}+\sum_{\alpha,\beta=1}^{k}\pdv{x_i}{q_\alpha}{q_\beta}
+        \dot{q_\alpha}\dot{q_\beta}\\
+        &\downarrow\\
+        &\text{广义加速度}
+    \end{aligned}
+\end{align*}
+\end{defn}
+\begin{defn}
+    延拓坐标系
+\begin{gather*}
+    (q_1,\cdots,q_k,\dot{q_1},\cdots,\dot{q_k},\ddot{q_1},\cdots,\ddot{q_k}
+)    \\ (\tilde{q_1},\cdots,\tilde{q_k},\dot{\tilde{q_1}},\cdots,\dot{\tilde{q_k}},\ddot{\tilde{q_1}},\cdots,\ddot{\tilde{q_k}}
+)    \\ \ddot{\tilde{q_\alpha}}=
+\sum_{\beta=1}^{k} \frac{\partial \tilde{q_\alpha}}{\partial q_{\beta}} \ddot{q_b} 
++ \sum_{\beta,\gamma=1}^{k} \frac{\partial^{2} \tilde{q_\alpha}}
+{\partial q_{\beta} \partial q_{\gamma}} \dot{q_\beta} \dot{q_\gamma}
+\\\frac{\partial\dot{\tilde{q_\alpha}}}{\partial \dot{q_{\beta}}}
+=\frac{\partial\tilde{q_\alpha}}{\partial q_{\beta}}\qquad
+\frac{\partial\ddot{\tilde{q_\alpha}}}{\partial \ddot{q_{\beta}}}
+=\frac{\partial\tilde{q_\alpha}}{\partial q_{\beta}}
+\end{gather*}  
+\begin{align*}
+    \frac{\partial\ddot{\tilde{q_\alpha}}}{\partial \dot{q_{\beta}}}
+&=\sum_{r_{1},r_{2}=1}^{k}\frac{\partial^{2}\tilde{q_\alpha}}
+{\partial q_{r_1}\partial q_{r_2}}
+\frac{\partial}{\partial \dot{q_\beta}}(\dot{q_{r_{1}}},\dot{q_{r_{2}}})
+\\&=\sum_{r_{2}=1}^{k}\frac{\partial^{2}\tilde{q_\alpha}}
+{\partial q_{\beta}\partial q_{r_2}}\dot{q_{r_{2}}}+
+\sum_{r_{1}=1}^{k}\frac{\partial^{2}\tilde{q_\alpha}}
+{\partial q_{r_1}\partial q_{\beta}}\dot{q_{r_{1}}}
+\\&=2\sum_{r=1}^{k}\frac{\partial^{2}\tilde{q_\alpha}}
+{\partial q_{r}\partial q_{\beta}}\dot{q_{r}}
+=\boxed{2\dv{t}\left(\frac{\pa \tilde{q_\alpha}}{\pa q_\beta}\right)}
+=\boxed{2\pdv{\dot{\tilde{q_\alpha}}}{q_\beta}}
+\end{align*}  
+\end{defn}
+\begin{proposition}
+    记\(q_{\alpha,s}\left(\dv{t}\right)^s\left(q_\alpha(t)\right)\)
+    \(\tilde{q}_{\alpha,s}\left(\dv{t}\right)^s\left(\tilde{q_\alpha}(t)\right)\)
+    ，问题\(
+        \frac{\pa \tilde{q}_{\alpha,s}}{\pa \tilde{q}_{\beta,t}}=\;?\qquad
+\)
+
+若\(s<t\)，则\(=0\)。下设\(s>t\)：
+\[
+\frac{\partial\tilde{q}_{\alpha, s}}{\partial q_{\beta,t}}=
+\begin{pmatrix}
+s \\
+t
+\end{pmatrix}
+\left(\frac{d}{dt}\right)^{s-t}
+\left(\frac{\partial\tilde{q\alpha}}{\partial q_\beta}\right)
+\]
+\begin{proof}
+若\(f=f(q,q',q'',\cdots)\),则
+\[
+\dv{f}{t}=\sum_{\alpha,s}\frac{\pa f}{\pa q^{\alpha,s}}\dv{q^{\alpha,s}}{t}
+=\sum_{\alpha,s}q^{\alpha,s+1}\frac{\pa f}{\pa q^{\alpha,s}}
+\]
+记\(\pa =\sum_{\alpha,s}q^{\alpha,s+1}\frac{\pa }{\pa q^{\alpha,s}}\)
+\[
+    \frac{\partial}{\partial q_{\alpha,s}}\pa^t=
+    \sum_{j=0}^{t}
+    \begin{pmatrix}
+    t\\
+    j
+    \end{pmatrix}
+    \pa^{t-j}
+    \left(\frac{\partial}{\partial q_{\alpha,s-j}}\right)
+\]
+\begin{align*}
+    \frac{\pa \tilde{q}_{\alpha,s}}{\pa \tilde{q}_{\beta,t}}
+    &=\frac{\pa }{\pa q_{\beta,t}}\pa ^s(\tilde{q_\alpha})\\
+    &=\sum_{j=0}^{s}
+    \begin{pmatrix}
+    s\\
+    j
+    \end{pmatrix}
+    \pa^{s-j}
+    \left(\frac{\partial \tilde{q_\alpha}}{\partial q_{\beta,t-j}}\right)
+    =\begin{pmatrix}
+        s\\
+        j
+        \end{pmatrix}
+        \pa^{s-j}
+        \left(\frac{\partial \tilde{q_\alpha}}{\partial q_\beta}\right)    
+\end{align*}
+\end{proof}
+\end{proposition}
+\begin{lemma}
+    \[
+\frac{\partial}{\partial q_{\alpha,s}}\pa^t=
+\sum_{j=0}^{t}
+\begin{pmatrix}
+t\\
+j
+\end{pmatrix}
+\pa^{t-j}
+\left(\frac{\partial}{\partial q_{\alpha,s-j}}\right)
+\]
+\begin{proof}
+    \(t=0\)成立，
+    \begin{align*}
+        t=1\qquad
+        \frac{\partial}{\partial q_{\alpha,s}}\pa f
+        &=\pa \frac{\partial f}{\partial q_{\alpha,s}}
+        +\frac{\pa f}{\pa q_{\alpha,s-1}}\\
+        =\frac{\partial}{\partial q_{\alpha,s}}
+        \left(\sum_{\beta,t}q_{\beta,t+1}\frac{\pa f}{\pa q_{\beta,t}}\right)
+        &=\sum_{\beta,t}q_{\beta,t+1}\frac{\pa^2 f}{\pa q_{\beta,t} \pa q_{\alpha,s}}
+        +\frac{\pa f}{\pa q_{\alpha,s-1}}=\\
+        \alpha=\beta\quad&\quad s=t+1
+    \end{align*}
+    下设\(t-1\)成立
+    \begin{align*}
+        \frac{\partial}{\partial q_{\alpha,s}}\pa^t
+        &=\left(\frac{\partial}{\partial q_{\alpha,s}}\pa \right)\pa^{t-1}
+        =\left(\pa \frac{\partial }{\partial q_{\alpha,s}}
+        +\frac{\pa }{\pa q_{\alpha,s-1}}\right)\pa ^{t-1}\\
+        &=\pa \sum_{j=0}^{t-1}
+        \begin{pmatrix}
+        t-1\\
+        j
+        \end{pmatrix}
+        \pa^{t-1-j}
+        \left(\frac{\partial}{\partial q_{\alpha,s-j}}\right)
+        +\sum_{j=0}^{t-1}
+        \begin{pmatrix}
+        t-1\\
+        j
+        \end{pmatrix}
+        \pa^{t-1-j}
+        \left(\frac{\partial}{\partial q_{\alpha,s-1-j}}\right)\\
+        &=\sum_{j=0}^{t-1}
+        \begin{pmatrix}
+        t-1\\
+        j
+        \end{pmatrix}
+        \pa^{t-j}
+        \left(\frac{\partial}{\partial q_{\alpha,s-j}}\right)
+        +\sum_{j'=1}^{t}
+        \begin{pmatrix}
+        t-1\\
+        j'-1
+        \end{pmatrix}
+        \pa^{t-1-j}
+        \left(\frac{\partial}{\partial q_{\alpha,s-j'}}\right)\\
+        &=\pa^t\frac{\pa }{\pa q_{\alpha,s}}+
+        \sum_{j'=1}^{t}
+    \underbrace{\left(\begin{pmatrix}
+        t-1\\
+        j'
+    \end{pmatrix}+
+    \begin{pmatrix}
+    t-1\\
+    j'-1
+    \end{pmatrix}\right)}_{\begin{pmatrix}
+        t\\j'\end{pmatrix}}
+        \pa^{t-1-j}
+        \left(\frac{\partial}{\partial q_{\alpha,s-j'}}\right)
+    \end{align*}
+\end{proof}
+\end{lemma}
+\begin{defn}
+    \((q_1,\cdots,q_k)\)构型空间\par
+    \((q_1,\cdots,q_k,\dot{q_1},\cdots,\dot{q_k})\)相空间(M的切丛)\par
+    \((q_1,\cdots,q_k,p_1,\cdots,p_k)\)相空间(M的余切丛)\par
+    \((q_1,\cdots,q_k,\ddot{q_1},\cdots,\ddot{q_k})\)M的jet丛
+\end{defn}
+\subsection{约束力}
+\begin{example}
+    平面自由质点，满足约束\(f(x,y)=0\)，理想约束，动能守恒。
+    \begin{gather*}
+\begin{aligned}
+    \begin{cases}
+        f(x(t),y(t))=0\\
+        \dot{x}^2+\dot{y}^2=k=\frac{2E_k}{m}
+    \end{cases}&\Rightarrow
+\begin{cases}
+\frac{\pa f}{\pa x}\dot{x}+\frac{\pa f}{\pa y}\dot{y}=0
+\Rightarrow\nabla f\cdot\vec{v}=0\\
+\dot{x}\ddot{x}+\dot{y}\ddot{y}=0
+\Rightarrow\vec{v}\cdot\vec{a}=0
+\end{cases}\\&
+\Rightarrow
+\ddot{x}=\lambda\frac{\pa f}{\pa x}\qquad 
+\ddot{y}=\lambda\frac{\pa f}{\pa y}\\
+\end{aligned}\\
+\begin{aligned}
+    \dv[2]{t}\left(f(x(t),y(t))\right)
+&=\left(f_{xx}x'+f_{xy}y'\right)x'+f_x x''
++\left(f_{xy}x'+f_{yy}y'\right)y'+f_y y''
+\\&=\left(f_{xx}x'^2+2f_{xy}x'y'+f_{yy}y'^2\right)
++\lambda\left(f_x^2+f_y^2\right)=0
+\\&\Rightarrow\lambda=-\frac{1}{f_x^2+f_y^2}
+\left(f_{xx}x'^2+2f_{xy}x'y'+f_{yy}y'^2\right)\\
+\dot{y}=-\frac{f_x}{f_y}\dot{x}
+\qquad\dot{x}^2=\frac{k}{1+\frac{f_x^2}{f_y^2}}
+&\qquad=-\frac{1}{f_x^2+f_y^2}\left(f_{xx}+2f_{xy}\left(-\frac{f_x}{f_y}\right)
++f_{yy}\frac{f_x^2}{f_y^2}\right)\frac{k}{1+\frac{f_x^2}{f_y^2}}\\
+&\qquad=-\frac{k}{(f_x^2+f_y^2)^2}
+\left(f_{xx}-2f_{xy}f_xf_y+f_{yy}f_x^2\right)
+\end{aligned}\\
+\Downarrow\\
+\begin{cases}
+    R_x=mf_x \lambda\\
+    R_y=mf_y \lambda
+\end{cases}
+    \end{gather*}
+\end{example}
+\begin{defn}
+    一般的约束力
+
+    设系统由 \( n \) 个变量 \( \mathbf{q} = (q_1, q_2, \dots, q_n) \) 描述，系统受到 \( m \) 个约束条件：
+    \[
+    f_i(\mathbf{q}) = 0 \quad \text{对于} \quad i = 1, 2, \dots, m,
+    \]
+    其中 \( f_i: \mathbb{R}^n \to \mathbb{R} \) 是光滑函数。
+    
+    约束力 \( \mathbf{Q} \) 定义为：
+    \[
+    \mathbf{Q} = \sum_{i=1}^m \lambda_i \, \nabla f_i,
+    \]
+    其中 \( \lambda_i \) 是拉格朗日乘数，\( \nabla f_i \) 是 \( f_i \) 的梯度向量：
+    \[
+    \nabla f_i = \left( \frac{\partial f_i}{\partial q_1}, \frac{\partial f_i}{\partial q_2}, \dots, \frac{\partial f_i}{\partial q_n} \right).
+    \]
+    约束力的第 \( j \) 个分量为：
+    \[
+    Q_j = \sum_{i=1}^m \lambda_i \frac{\partial f_i}{\partial q_j}.
+    \]
+\end{defn}
+\begin{example}
+三根杆，分别记为杆 1、杆 2 和杆 3。
+杆 1 的一端固定在地上，可以自由转动。
+杆 3 的一端固定在墙上，可以自由转动。
+杆 1 和杆 2 ，杆 2 和杆 3通过一个铰链连接，可以自由转动。
+
+    给定几何约束：
+    \[
+    \begin{cases}
+    q_1 = (x_1 - x_0)^2 + (y_1 - y_0)^2 - l_1^2 = 0 \\
+    q_2 = (x_2 - x_1)^2 + (y_2 - y_1)^2 - l_2^2 = 0 \\
+    q_3 = (x_3 - x_2)^2 + (y_3 - y_2)^2 - l_3^2 = 0
+    \end{cases}
+    \]
+    拉格朗日乘数条件：
+    \[
+    \frac{F_{1,x}}{x_1} = \frac{F_{1,y}}{y_1} = \lambda_1 \qquad
+    \frac{F_{2,x}}{x_2 - x_1} = \frac{F_{2,y}}{y_2 - y_1} = \lambda_2 \qquad
+    \frac{F_{3,x}}{a - x_2} = \frac{F_{3,y}}{b - y_2} = \lambda_3
+    \]
+    以及力的平衡条件：
+    \[
+    \begin{cases}
+    F_{1,x} = F_{2,x} \\
+    F_{1,y} + m_{1,y} = F_{2,y}
+    \end{cases}
+    \qquad
+    \begin{cases}
+    F_{2,x} = F_{3,x} \\
+    F_{2,y} + m_{2,y} = F_{3,y}
+    \end{cases}
+    \]
+\begin{solution}
+    \noindent \textbf{步骤 1：几何约束线性化} \\
+    对几何约束 \( q_1, q_2, q_3 \) 进行线性化：
+    \[
+    \begin{cases}
+    2(x_1 - x_0) \delta x_1 + 2(y_1 - y_0) \delta y_1 = 0, \\
+    2(x_2 - x_1) \delta x_2 + 2(y_2 - y_1) \delta y_2 = 0, \\
+    2(x_3 - x_2) \delta x_3 + 2(y_3 - y_2) \delta y_3 = 0.
+    \end{cases}
+    \]
+
+    \noindent \textbf{步骤 2：拉格朗日乘数条件} \\
+    将拉格朗日乘数条件代入力的表达式：
+    \[
+    \begin{cases}
+    F_{1,x} = \lambda_1 x_1, \\
+    F_{1,y} = \lambda_1 y_1, \\
+    F_{2,x} = \lambda_2 (x_2 - x_1), \\
+    F_{2,y} = \lambda_2 (y_2 - y_1), \\
+    F_{3,x} = \lambda_3 (a - x_2), \\
+    F_{3,y} = \lambda_3 (b - y_2).
+    \end{cases}
+    \]
+    
+    \noindent \textbf{步骤 3：力的平衡条件} \\
+    将力的平衡条件代入拉格朗日乘数条件：
+    \[
+    \begin{cases}
+    \lambda_1 x_1 = \lambda_2 (x_2 - x_1), \\
+    \lambda_1 y_1 + m_{1,y} = \lambda_2 (y_2 - y_1), \\
+    \lambda_2 (x_2 - x_1) = \lambda_3 (a - x_2), \\
+    \lambda_2 (y_2 - y_1) + m_{2,y} = \lambda_3 (b - y_2).
+    \end{cases}
+    \]
+    
+    \noindent \textbf{步骤 4：解拉格朗日乘数} \\
+    通过力的平衡条件，解出拉格朗日乘数：
+    \[
+    \begin{cases}
+    \lambda_1 = \frac{\lambda_2 (x_2 - x_1)}{x_1}, \\
+    \lambda_2 = \frac{\lambda_3 (a - x_2)}{x_2 - x_1}, \\
+    \lambda_3 = \frac{\lambda_2 (y_2 - y_1) + m_{2,y}}{b - y_2}.
+    \end{cases}
+    \]
+    
+    \noindent \textbf{步骤 5：解坐标变量} \\
+    将拉格朗日乘数代入几何约束，解出坐标变量：
+    \[
+    \begin{cases}
+    x_1 = x_0 + l_1 \cos \theta_1, \\
+    y_1 = y_0 + l_1 \sin \theta_1, \\
+    x_2 = x_1 + l_2 \cos \theta_2, \\
+    y_2 = y_1 + l_2 \sin \theta_2, \\
+    x_3 = x_2 + l_3 \cos \theta_3, \\
+    y_3 = y_2 + l_3 \sin \theta_3,
+    \end{cases}
+    \]
+    其中 \( \theta_1, \theta_2, \theta_3 \) 是各杆的转动角度。
+\end{solution}
+\begin{solution}
+
+\end{solution}
+
+\end{example}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+% 在拉格朗日力学中，广义加速度与广义力之间的关系由拉格朗日方程描述：
+
+% \[
+% \frac{d}{dt} \left( \frac{\partial L}{\partial \dot{q}^i} \right) - \frac{\partial L}{\partial q^i} = Q_i
+% \]
+
+% 其中，\(L\) 是拉格朗日量，\(Q_i\) 是广义力。
+
+
+
+
+
+
+
+
+
+
+
+
+
+%  ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ 正文部分
+\ifx\allfiles\undefined
+\end{document}
+\fi
