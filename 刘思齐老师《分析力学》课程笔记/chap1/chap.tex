@@ -12,7 +12,6 @@
 \fi
 %  ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ 正文部分
 \chapter{}
-\section{}
 \begin{add}
 \[
 \text{什么是分析力学}\begin{cases}
@@ -27,7 +26,7 @@
 \]
 本课程偏向力学讲法，跳过后续分析课程的内容，只考虑光滑、黎曼可积
 \end{add}
-\subsection{时空}
+\section{时空}
 \begin{defn}
 Newton 时空 \(S=\underbrace{T}_{\text{时间}}\times
 \underbrace{X}_{\text{空间}}\)
@@ -48,7 +47,7 @@ Newton 时空 \(S=\underbrace{T}_{\text{时间}}\times
     \item $G=\mathbb{R}^3$,空间X就是一个G-torsor
     \item V是一个线性空间，$G=GL(V)$，
     记B是V的所有基构成的集合，设$\dim_{\mathbb{R}}V=n$,基$B=\{e_1,\dots,e_n\}$线性无关，B是一个G-torsor
-    \item 势能$F=(F_x,F_y,F_z)$满足存在u
+    \item 势能$F=(F_x,F_y,F_z)$满足存在
     \(F_x=-\frac{\pa u}{\pa x}\quad F_y=-\frac{\pa u}{\pa y}\quad F_z=-\frac{\pa u}{\pa z}\)
     \(U(p)=\int_{p_0}^{p}F_x\,dx+F_y\,dy+F_z\,dz\)
 \end{itemize}
@@ -137,7 +136,7 @@ t
 \begin{add}
     Galileo变换的全体构成一个群G,\(S=T\times X\)中所有惯性系构成的集合是一个G-torsor
 \end{add}
-\subsection{约束}
+\section{约束}
 \begin{proposition}
     质点的轨迹$x(t)$
 
@@ -183,14 +182,14 @@ t
 
 \paragraph*{3. 理想约束（Ideal Constraints）}
 \subparagraph*{定义}
-约束力 \(\mathbf{R}_i\) 在虚位移 \(\delta \mathbf{r}_i\) 上做功为零：
+约束力 \(\mathbf{R}_i\) 在虚位移 \(\delta \mathbf{r}_i\) (见定义\ref{virtualdisplacement})上做功为零：
 \begin{equation}
     \sum_{i=1}^n \mathbf{R}_i \cdot \delta \mathbf{r}_i = 0
 \end{equation}
 
 \subparagraph*{特点}
 \begin{itemize}
-    \item 约束力与虚位移正交（如光滑接触的法向力）。
+    \item 约束力与虚位移正交\(\mathbf{R}_i\propto \nabla q_i\)（如光滑接触的法向力）。
     \item 例：刚体无滑滚动、不可伸长的绳索。
 \end{itemize}
 
@@ -279,7 +278,7 @@ Pfaffian 形式（Pfaffian Form）是微分几何中的一个重要概念，在�
 \end{cases}
 \]
 \end{example}
-\subsection{广义坐标}
+\section{广义坐标}
 考虑\(\mathbb{R}^n\)中的\(m\)个约束\(g_\alpha(x)=0\; ,\; \alpha=1,\cdots,m\)
 \begin{defn}[k维曲面]
     设 $ M $ 是 $\mathbb{R}^n$ 的子集。若存在 $ k \in \mathbb{N} $，$ k \leq n $，使得对于任意的 $ x_0 \in M $，存在 $ x_0 $ 在 $\mathbb{R}^n$ 中的开邻域 $\mathcal{U}$，以及一个微分同胚
@@ -320,7 +319,7 @@ Pfaffian 形式（Pfaffian Form）是微分几何中的一个重要概念，在�
 存在一个平滑的同胚映射 $ \varphi: U \rightarrow \mathbb{R}^n $，则称 $ (U, \varphi) $ 
 为 $ M $ 上的一组广义坐标，记作 $ (q^1, q^2, \dots, q^n) $，其中 $ q^i $ 是映射 $ \varphi $ 的分量函数。
 
-更正式地，可以表示为：
+可以表示为：
 \[
 \varphi: U \subset M \rightarrow \mathbb{R}^n, \quad p \mapsto (q^1(p), q^2(p), \dots, q^n(p))
 \]
@@ -526,7 +525,7 @@ j
     \((q_1,\cdots,q_k,p_1,\cdots,p_k)\)相空间(M的余切丛)\par
     \((q_1,\cdots,q_k,\ddot{q_1},\cdots,\ddot{q_k})\)M的jet丛
 \end{defn}
-\subsection{约束力}
+\section{约束力}
 \begin{example}
     平面自由质点，满足约束\(f(x,y)=0\)，理想约束，动能守恒。
     \begin{gather*}
@@ -589,7 +588,7 @@ j
     Q_j = \sum_{i=1}^m \lambda_i \frac{\partial f_i}{\partial q_j}.
     \]
 \end{defn}
-\begin{example}
+\begin{example}\label{tribar}
 三根杆，分别记为杆 1、杆 2 和杆 3。
 杆 1 的一端固定在地上，可以自由转动。
 杆 3 的一端固定在墙上，可以自由转动。
@@ -622,6 +621,8 @@ j
     \end{cases}
     \]
 \begin{solution}
+    拉格朗日乘数法(用虚功原理解该问题见例\ref{tribarvw})
+
     \noindent \textbf{步骤 1：几何约束线性化} \\
     对几何约束 \( q_1, q_2, q_3 \) 进行线性化：
     \[
@@ -680,19 +681,272 @@ j
     \]
     其中 \( \theta_1, \theta_2, \theta_3 \) 是各杆的转动角度。
 \end{solution}
-\begin{solution}
-
-\end{solution}
-
 \end{example}
+\section{虚功原理}
+\begin{defn}\label{virtualdisplacement}
+    虚位移
 
+    构型空间M的切空间中的向量
+    \[ M \qquad p \in M \qquad \vec{v} \in T_{p}M \]
+\end{defn}
+\begin{principle}
+    虚功原理
 
+    静力平衡$\Leftrightarrow$ 主动力在虚位移上的虚功等于零
+    \[
+    \delta W=\vec{F}\cdot\vec{v}=0\;,\;\forall\vec{v}\in T_p M
+    \]
+    在考虑理想约束的情况下，虚功原理可以进一步表示为约束力的梯度形式。
+\begin{enumerate}
+    \item 理想约束意味着约束在虚位移上不做功。因此，虚功原理可以表示为：
+    \[
+    \sum_{j} Q_j \delta q_j = 0
+    \]
+    其中，\( Q_j \) 是广义力，\( \delta q_j \) 是广义坐标的虚位移。
+    \item 对于理想约束，约束 \( \mathbf{R} \) 满足：
+    \[
+    \mathbf{R} \cdot \delta \mathbf{r} = 0
+    \]
+    \item 在广义坐标下，约束条件可以表示为梯度形式。假设约束方程为 \( f_k(q_1, q_2, \dots, q_n) = 0 \)，则虚位移 \( \delta q_j \) 必须满足：
+    \[
+    d f_k =\sum_{j} \frac{\partial f_k}{\partial q_j} \delta q_j = 0
+    \]
+    \item 因此，虚功原理在理想约束下的完整表示为：
+    \[
+    \sum_{j} \left( Q_j - \sum_{k} \lambda_k \frac{\partial f_k}{\partial q_j} \right) \delta q_j = 0
+    \]
+    其中，\( \lambda_k \) 是拉格朗日乘子，用于引入约束条件。
+\end{enumerate}
+\end{principle}
+\begin{example}\label{tribarvw}
+    用虚功原理解例\ref{tribar}。
+    \begin{solution}
+        
+\noindent \textbf{步骤 1：虚位移关系}
+\[
+\begin{cases}
+2(x_1 - x_0) \delta x_1 + 2(y_1 - y_0) \delta y_1 = 0, \\
+2(x_2 - x_1) \delta x_2 + 2(y_2 - y_1) \delta y_2 = 0, \\
+2(x_3 - x_2) \delta x_3 + 2(y_3 - y_2) \delta y_3 = 0.
+\end{cases}
+\]
 
+\noindent \textbf{步骤 2：虚功方程}
+\(
+F_{1,x} \delta x_1 + F_{1,y} \delta y_1 + F_{2,x} \delta x_2 + F_{2,y} \delta y_2 + F_{3,x} \delta x_3 + F_{3,y} \delta y_3 = 0.
+\)
 
+\noindent \textbf{步骤 3：代入虚位移关系} \\
+将虚位移关系代入虚功方程，得到：
+\[
+F_{1,x} \delta x_1 + F_{1,y} \delta y_1 + F_{2,x} \delta x_2 + F_{2,y} \delta y_2 + F_{3,x} \delta x_3 + F_{3,y} \delta y_3 = 0.
+\]
+利用几何约束的虚位移关系，消去 \( \delta x_3 \) 和 \( \delta y_3 \)：
+\[
+F_{1,x} \delta x_1 + F_{1,y} \delta y_1 + F_{2,x} \delta x_2 + F_{2,y} \delta y_2 + F_{3,x} \left( \frac{x_3 - x_2}{x_2 - x_1} \delta x_2 \right) + F_{3,y} \left( \frac{y_3 - y_2}{y_2 - y_1} \delta y_2 \right) = 0.
+\]
 
+\noindent \textbf{步骤 4：力的平衡条件} \\
+由于虚位移 \( \delta x_1, \delta y_1, \delta x_2, \delta y_2 \) 是任意的，系数必须为零：
+\[
+\begin{cases}
+F_{1,x} = 0, \\
+F_{1,y} = 0, \\
+F_{2,x} + F_{3,x} \left( \frac{x_3 - x_2}{x_2 - x_1} \right) = 0, \\
+F_{2,y} + F_{3,y} \left( \frac{y_3 - y_2}{y_2 - y_1} \right) = 0.
+\end{cases}
+\]
 
+\noindent \textbf{步骤 5：解力的平衡方程} \\
+通过力的平衡条件，解出各力的大小和方向：
+\[
+\begin{cases}
+F_{1,x} = 0, \\
+F_{1,y} = 0, \\
+F_{2,x} = -F_{3,x} \left( \frac{x_3 - x_2}{x_2 - x_1} \right), \\
+F_{2,y} = -F_{3,y} \left( \frac{y_3 - y_2}{y_2 - y_1} \right).
+\end{cases}
+\]
+\begin{zhu}
+    拉格朗日乘数 \( \lambda_i \) 反映了约束力的大小和方向，
+    而虚功原理通过虚位移关系直接描述了力的平衡。
+\end{zhu}
+    \end{solution}
+\end{example}
+\begin{add}
+虚位移与虚速度的科学史(\textbf{此部分内容AIGC})
 
+\noindent \textbf{1. 虚速度的起源} 
 
+虚速度的概念最早可以追溯到 17 世纪，由瑞士数学家 \textbf{约翰·伯努利}（Johann Bernoulli）在 1717 年提出。他在写给皮埃尔·瓦里尼翁的信中首次提出了虚速度原理，用于描述系统在平衡状态下可能发生的微小运动。
+
+\noindent \textbf{2. 虚速度原理} 
+
+虚速度原理的核心思想是：在平衡状态下，系统中所有力的虚功之和为零。数学表达式为：
+\[
+\sum_{i=1}^n \mathbf{F}_i \cdot \delta \mathbf{v}_i = 0,
+\]
+其中 \( \mathbf{F}_i \) 是作用在第 \( i \) 个质点上的力，\( \delta \mathbf{v}_i \) 是虚速度。
+
+\noindent \textbf{3. 从虚速度到虚位移} 
+
+随着分析力学的发展，虚速度的概念逐渐被推广为 \textbf{虚位移}（virtual displacement）。虚位移是系统在平衡状态下可能发生的微小位移，由 \textbf{约瑟夫-路易·拉格朗日}（Joseph-Louis Lagrange）在其 1788 年出版的《分析力学》中正式提出。
+
+\noindent \textbf{4. 虚位移与虚速度的关系} 
+
+虚位移和虚速度本质上是相关的：
+\[
+\delta \mathbf{r}_i = \int \delta \mathbf{v}_i \, dt.
+\]
+在静力学问题中，虚速度和虚位移可以互换使用。
+
+\noindent \textbf{5. 科学史的意义} 
+
+虚速度和虚位移的概念是分析力学的基础，为后来的 \textbf{拉格朗日力学} 和 \textbf{哈密顿力学} 提供了重要的理论工具。虚功原理和虚速度原理在工程力学和物理学中有广泛应用，例如结构分析和多体动力学。
+
+\begin{enumerate}
+\item 理论的普适性 \\
+- 虚速度最初用于静力学问题，而虚位移可以推广到动力学问题。 \\
+- 虚位移是虚速度对时间的积分，能够更自然地描述系统在时间上的微小变化。
+
+\item 数学表达的简洁性 \\
+- 虚速度涉及速度的概念，需要引入时间变量，增加了问题的复杂性。 \\
+- 虚位移直接描述系统在空间中的微小变化，数学表达更加简洁。
+
+\item 物理意义的清晰性 \\
+- 虚速度描述的是微小速度，较为抽象。 \\
+- 虚位移描述的是微小位移，更贴近实际物理现象。
+\end{enumerate}
+\end{add}
+\begin{thm}
+    若主动力有势，则在平衡情况下，势能取极值。
+\end{thm}
+\begin{example}
+    悬链线问题是指在重力作用下，一根均匀、
+    柔软且不可伸长的链条悬挂在两个固定点之间所形成的曲线形状。
+    我们需要在构型空间上推导出这条曲线的方程。
+
+    假设与符号定义
+
+    \noindent
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \begin{minipage}{0.3\linewidth}
+            \begin{itemize}
+              \item 曲线的方程为 \( y(x) \)。
+            \end{itemize}
+          \end{minipage} &
+        \begin{minipage}{0.3\linewidth}
+          \begin{itemize}
+            \item 链条的线密度为 \( \rho \)。
+          \end{itemize}
+        \end{minipage} &
+        \begin{minipage}{0.3\linewidth}
+          \begin{itemize}
+            \item 重力加速度为 \( g \)。
+          \end{itemize}
+        \end{minipage} 
+        \\ \hline
+      \end{tabular} 
+    \begin{solution}
+        \begin{gather*}
+            \tilde{y}(x)=y(x)+\delta y(x)\\
+\tilde{y}(a)=l_{1}\quad\tilde{y}(-a)=l_{2}\quad\Rightarrow\quad\delta y(a)=0\quad\delta y(-a)=0
+\\\tilde{y}'(x)=y(x)+\delta y'(x)
+        \end{gather*}
+\begin{align*}
+    \rho g =1\quad
+\mathcal{U}(y)&=\int_{-a}^{a}y(x)\sqrt{1+y^{\prime}(x)^{2}}dx\\
+\delta \mathcal{U}(y)&=\mathcal{U}(y+\delta y)-\mathcal{U}(y)+\omicron(\delta y)\\
+&=\int_{-a}^{a}(y(x)+\delta y (x))\sqrt{1+(y'(x)+ \delta y'(x))^{2}}\,dx-\mathcal{U}(y)
+\\&=\int_{-a}^{a}(y(x)+\delta y (x))\sqrt{1+y'(x)^{2}+2y'(x) \delta y'(x)}\,dx-\mathcal{U}(y)
+\\&= \int_{-a}^{a} \delta y(x) \sqrt{1 + y'(x)^2} 
++ \frac{y(x) y'(x) \delta y'(x)}{\sqrt{1 + y'(x)^2}} \, dx + \omicron(\delta y) \\
+\begin{gathered}
+    \delta y'(x)=(\delta y(x))'\\
+    \text{将第二项进行分部积分}
+\end{gathered} \quad
+&= \int_{-a}^{a} \delta y(x) \underbrace{\left(\sqrt{1 + y'(x)^2} 
+- \left(\frac{y(x) y'(x) }{\sqrt{1 + y'(x)^2}}\right)' \right)}
+_{\delta y \text{对应的广义力}} \, dx
+\\& \quad+\frac{y(x) y'(x) }{\sqrt{1 + y'(x)^2}} \delta y\vert^a_{-a}
+\\&\Rightarrow \sqrt{1 + y'(x)^2} 
+- \left(\frac{y(x) y'(x) }{\sqrt{1 + y'(x)^2}}\right)' =0
+\\&\Rightarrow \sqrt{1 + y'(x)^2} 
+- \frac{y'(x)^2 + y(x) y''(x)}{\sqrt{1 + y'(x)^2}} 
++ \frac{y(x) y'(x)^2 y''(x)}{(1 + y'(x)^2)^{3/2}} = 0 
+\\&\Rightarrow y y'' = 1 + y^2 
+\\&\Rightarrow y(x) = C_1 \cosh\left( \frac{x - C_2}{C_1} \right) 
+\end{align*}
+\end{solution}
+\end{example}
+\begin{example}
+    肥皂泡
+
+表面张力 \(\Rightarrow\) 面积最小。
+\[
+S(y) = \int_{-a}^{a}k y(x) \sqrt{1 + y'^{2}(x)} \, dx
+\]
+\end{example}
+\section{达朗贝尔原理}
+动力学中，由NL2
+\((m_i \ddot{x}_i=F_i+(R_j)_i)\)，移项得
+\[\vec{F}+R_j-G=0\;,\;\text{其中}G_i=m_i\ddot{x}_i
+\]
+
+静力学中，由虚功原理得
+\(\delta W =(\vec{F}-G)\cdot \delta r =0\)
+\begin{thm}
+    欧拉\textminus 拉格朗日方程
+\noindent
+设系统的广义坐标为 \( q_1, \cdots, q_k \;,\; k = n-m\)
+\begin{gather*}
+    x_i = x_i(q), i=1,\cdots,n.
+\\
+\delta X = \begin{pmatrix}
+\delta x_{1} \\
+\vdots \\
+\delta x_{n}
+\end{pmatrix} \qquad 
+\delta x_i = \sum_{l=1}^{k} \frac{\partial x_{i}}{\partial q_{l}} \delta q_{l}
+\end{gather*}
+\begin{align*}
+\delta W &= \sum_{i=1}^n (F_i - m_i \ddot{x}_i) \delta x_i
+= \sum_{l=1}^k  \left( \sum_{i=1}^n F_i \frac{\partial x_i}{\partial q_l} \right) \delta q_l
+\\
+&T = \frac{1}{2} \sum_{i=1}^{n} m_{i} \dot{x}_{i}^{2}
+\qquad m_{i} \ddot{x}_{i} = \frac{\partial T}{\partial \dot{x}_{i}}
+\\
+\frac{\partial T}{\partial q_l} &= \sum_{i=1}^{n} m_{i} \dot{x}_{i} 
+\frac{\partial \dot{x}_{i}}{\partial q_l} 
+= \sum_{i=1}^{n} m_i \dot{x}_{i} \dv{t}
+\frac{\partial x_{i}}{\partial q_l}
+\\
+\frac{\partial T}{\partial \dot{q}_l} &= \sum_{i=1}^{n} m_{i} \dot{x}_{i} 
+\frac{\partial \dot{x}_{i}}{\partial \dot{q}_l} 
+= \sum_{i=1}^{n} m_i \dot{x}_{i}
+\frac{\partial x_{i}}{\partial q_l}
+\end{align*}
+\begin{gather*}
+\frac{\partial T}{\partial q_l} - \frac{d}{dt} \left( \frac{\partial T}{\partial \dot{q}_l} \right) 
+= -\sum_{i=1}^{n} m_{i} \ddot{x}_{i} \frac{\partial x_{i}}{\partial q_l}\\
+\delta W=0 \Rightarrow
+\sum_{l=1}^{k} \left( Q_{l} + \frac{\partial T}{\partial q_{l}} 
+- \frac{d}{dt} \left( \frac{\partial T}{\partial \dot{q}_{l}} \right) \right) \delta q = 0
+\\
+\Rightarrow \boxed{\frac{\partial T}{\partial \dot{q}_{l}} - \frac{d}{dt} 
+\left( \frac{\pa T}{\partial \dot{q}_l} \right) + Q_l = 0}
+\end{gather*}
+若\(F_i=-\frac{\pa u}{\pa x_i}\)
+    \[Q_l=\sum_{i=1}^{n}F_i \frac{\pa x_i}{\pa q_l}=-\frac{\pa u}{\pa q_l}
+    \]
+若引入\(L=T-u \quad T=L+u\)
+\[\frac{\pa (L+u)}{\pa q_l}-\dv{t}\left(\frac{\pa (L+u)}{\pa \dot{q}_l}\right)
+-\frac{\pa u}{\pa q_l}=0
+\Rightarrow \boxed{\frac{\pa L}{\pa q_l}
+-\dv{t}\left(\frac{\pa L}{\pa \dot{q}_l}\right)=0}\]
+\end{thm}
+\section{最小作用量原理}
 
 
 
