@@ -407,7 +407,7 @@ s \\
 t
 \end{pmatrix}
 \left(\frac{d}{dt}\right)^{s-t}
-\left(\frac{\partial\tilde{q\alpha}}{\partial q_\beta}\right)
+\left(\frac{\partial\tilde{q}_\alpha}{\partial q_\beta}\right)
 \]
 \begin{proof}
 若\(f=f(q,q',q'',\cdots)\),则
@@ -1113,7 +1113,7 @@ y(0) = 0, \quad y(1) = 1.
 \end{gather*}
 \end{example}
 \begin{example}
-电磁场的
+电磁场的(不会起名了)
     
     考虑 \(\mathbb{R}^3\) 中的拉格朗日量：
     \[
@@ -1189,7 +1189,7 @@ L(y, y') = \frac{\sqrt{1 + (y')^2}}{\sqrt{2gy}}.
 -\frac{g \sqrt{1 + (y')^2}}{(2gy)^{3/2}} - \dv{x} 
 \left( \frac{y'}{\sqrt{2gy} \sqrt{1 + (y')^2}} \right) = 0
 \end{gather*}
-\item  简化方程
+\item  
 引入守恒量（能量守恒）：
 \[
 \frac{y'}{\sqrt{2gy} \sqrt{1 + (y')^2}} = C,
@@ -1210,7 +1210,7 @@ L(y, y') = \frac{\sqrt{1 + (y')^2}}{\sqrt{2gy}}.
 \[
 (y')^2 = \frac{k y}{1 - k y}.
 \]
-\item  参数化求解
+\item  
 引入参数 \( \theta \)，使得：
 \[
 y = \frac{1}{2k} (1 - \cos \theta), \quad \dd y = \frac{1}{2k} \sin \theta \dd \theta.
@@ -1230,12 +1230,199 @@ x = \frac{1}{2k} (\theta - \sin \theta) + C.
 结合边界条件，最终得到最速降线为摆线（旋轮线）。
 \end{itemize}
 \end{example}
+\section{变分导数的进一步讨论}
+\begin{align*}
+    S(q)&=\int_{t_0}^{t_1}\left(q(t),q'(t)\cdots q^{(s)}(t)\right)\,dt\\
+    S(q + h) - S(q) &= \int_{t_0}^{t_1} L(q + h, q' + h', \dots, q^{(s)} + h^{(s)}) \, dt 
+    - \int_{t_0}^{t_1} L(q, q', \dots, q^{(s)}) \, dt \\
+    &= \int_{t_0}^{t_1} \left( L(q + h, q' + h', \dots, q^{(s)} + h^{(s)}) 
+    - L(q, q', \dots, q^{(s)}) \right) \, dt \\
+    &= \int_{t_0}^{t_1} \left( \pdv{L}{q} h + \pdv{L}{q'} h' + \pdv{L}{q''} h'' 
+    + \cdots + \pdv{L}{q^{(s)}} h^{(s)} + \omicron(h) \right) \, dt \\
+    &= \int_{t_0}^{t_1} \left( \pdv{L}{q} h + \pdv{L}{q'} \dv{h}{t} 
+    + \pdv{L}{q''} \dv[2]{h}{t} + \cdots + \pdv{L}{q^{(s)}} \dv[s]{h}{t} 
+    + \omicron(h) \right) \, dt \\
+    &= \int_{t_0}^{t_1} \pdv{L}{q} h \, dt 
+    + \left( \left. \pdv{L}{q'} h \right|_{t_0}^{t_1} 
+    - \int_{t_0}^{t_1} \dv{t} \left( \pdv{L}{q'} \right) h \, dt \right) \\
+&\quad + \left( \left. \pdv{L}{q''} \dv{h}{t} \right|_{t_0}^{t_1} 
+- \int_{t_0}^{t_1} \dv{t} \left( \pdv{L}{q''} \right) \dv{h}{t} \, dt \right) \\
+&\quad + \cdots \\
+&\quad + \left( \left. \pdv{L}{q^{(s)}} \dv[s-1]{h}{t} \right|_{t_0}^{t_1} 
+- \int_{t_0}^{t_1} \dv{t} \left( \pdv{L}{q^{(s)}} \right) \dv[s-1]{h}{t} \, dt \right) 
++ \int_{t_0}^{t_1} \omicron(h) \, dt \\
+&=\int_{t_0}^{t_1}\left(\left(
+    \frac{\pa L}{\pa q}-\dv{t}\left(\frac{\pa L}{\pa q'}\right)
+    +\dv[2]{t}\left(\frac{\pa L}{\pa q''}\right)+\cdots+\left(-\dv{t}\right)\frac{\pa L}{\pa q^{(s)}}
+\right)
+h+\omicron(\cdots)\right)\,dt\\
+\frac{\delta L}{\delta q_\alpha}&=
+\sum_{p \geq 0}\left(-\dv{t}\right)^p
+\left(\frac{\pa L}{\pa q_\alpha^{(p)}}\right)=
+\sum_{p \geq 0}\left(-\dv{t}\right)^p
+\left(\frac{\pa L}{\pa q_{\alpha,p}}\right)
+\end{align*}
+\begin{thm}
+    欧拉-拉格朗日方程与广义坐标的选取无关
+    \begin{yzh}
+\begin{gather*}
+            \frac{\delta L}{\delta q_\alpha}=
+            \sum_{p \geq 0}\left(-\dv{t}\right)^p
+            \left(\frac{\pa L}{\pa q_{\alpha,p}}\right)=
+            \sum_{p \geq 0}\left(-\pa \right)^p
+            \left(\frac{\pa L}{\pa q_{\alpha,p}}\right)
+            \\
+\frac{\partial\tilde{q}_{\alpha, s}}{\partial q_{\beta,t}}=
+\begin{pmatrix}
+s \\
+t
+\end{pmatrix}
+\left(\dv{t}\right)^{s-t}
+\left(\frac{\partial\tilde{q}_\alpha}{\partial q_\beta}\right)=
+\begin{pmatrix}
+s \\
+t
+\end{pmatrix}
+\pa^{s-t}
+\left(\frac{\partial\tilde{q}_\alpha}{\partial q_\beta}\right)
+\quad s\geq t
+\end{gather*}
+    \end{yzh}
+\begin{proof}
+    \begin{gather*}
+        \frac{\delta L}{\delta u_\alpha}=
+        \sum_{l \geq 0}\left(-\pa \right)^l
+        \left(\frac{\pa L}{\pa u_{\alpha,l}}\right)\\
+        \frac{\pa L}{\pa u_{\alpha,l}}=\sum_{k\geq l}\frac{\pa L}{\pa q_{\beta,k}}
+        \frac{\pa q_{\beta,k}}{\pa u_{\alpha,l}}=\sum_{k\geq l}\frac{\pa L}{\pa q_{\beta,k}}
+        \begin{pmatrix}
+        k \\
+        l
+        \end{pmatrix}
+        \pa^{k-l}
+        \left(\frac{\partial q_\beta}{\partial u_\alpha}\right) 
+    \end{gather*}
+    \begin{align*}
+        \frac{\delta L}{\delta u_\alpha}&=
+        \sum_{l \geq 0}\left(-1\right)^l\pa^l
+        \left(\sum_{k\geq l}\frac{\pa L}{\pa q_{\beta,k}}
+        \begin{pmatrix}
+        k \\
+        l
+        \end{pmatrix}
+        \pa^{k-l}
+        \left(\frac{\partial q_\beta}{\partial u_\alpha}\right) \right)\\
+&=\sum_{l \geq 0}\sum_{k\geq l}\left(-1\right)^l
+\begin{pmatrix}
+    k \\
+    l
+\end{pmatrix}
+\sum_{j=0}^{l}\begin{pmatrix}
+l\\
+j
+\end{pmatrix}\pa^j\left(\frac{\pa L}{\pa q_{\beta,k}}\right)
+\pa^{l-j}\left(\pa^{k-l}
+\left(\frac{\partial q_\beta}{\partial u_\alpha}\right) \right)\\
+&=\sum_{l \geq 0}\sum_{k\geq l}\left(-1\right)^l
+\begin{pmatrix}
+    k \\
+    l
+\end{pmatrix}
+\sum_{j=0}^{l}\begin{pmatrix}
+l\\
+j
+\end{pmatrix}\pa^j\left(\frac{\pa L}{\pa q_{\beta,k}}\right)
+\pa^{k-j}\left(\frac{\partial q_\beta}{\partial u_\alpha}\right) \\
+&=\sum_{k\geq 0}\sum_{j \geq 0}\left(\sum_{l=j}^{k}\left(-1\right)^l
+\begin{pmatrix}
+    k \\
+    l
+\end{pmatrix}
+\begin{pmatrix}
+l\\
+j
+\end{pmatrix}\right)\pa^j\left(\frac{\pa L}{\pa q_{\beta,k}}\right)
+\pa^{k-j}\left(\frac{\partial q_\beta}{\partial u_\alpha}\right) \\
+&=\underbrace{\sum_{j \geq 0}\left(-1\right)^j \pa^j\left(\frac{\pa L}{\pa q_{\beta,k}}\right)}_{
+=\frac{\delta L}{\delta q_\beta} }
+\frac{\partial q_\beta}{\partial u_\alpha}
+=\frac{\delta L}{\delta q_\beta}\frac{\partial q_\beta}{\partial u_\alpha}
+    \end{align*}
+\end{proof}
+\begin{zhu}
+    \begin{align*}
+\sum_{l=j}^{k} (-1)^l \binom{k}{l} \binom{l}{j}&=
+\sum_{l=j}^{k} (-1)^l \cdot \frac{k!}{j!(k-l)!(l-j)!}\\
+&\overset{m = l - j}{=}
+\sum_{m=0}^{k-j} (-1)^{m+j} \cdot \frac{k!}{j!(k-j-m)!m!}\\
+&=(-1)^j \cdot \frac{k!}{j!(k-j)!} \cdot \underbrace{\sum_{m=0}^{k-j} (-1)^m 
+\cdot \frac{(k-j)!}{m!(k-j-m)!}}_{=\sum_{m=0}^{k-j} (-1)^m \binom{k-j}{m}
+= (1 - 1)^{k-j} = 0^{k-j}}\\
+&=(-1)^j \delta_k^j=(-1)^k \delta_k^j
+    \end{align*}
+\end{zhu}
+\end{thm}
+\begin{add}
+    物理的理论力学书上通常的证明过程
 
+    设广义坐标变换为：
+    \(\displaystyle q_i = q_i(Q_1, Q_2, \dots, Q_n, t) \)
+    
+    拉格朗日量是标量，在坐标变换下保持不变：
+    \(\displaystyle L(q, \dot{q}, t) = \tilde{L}(Q, \dot{Q}, t) \)
+    
+    广义速度的变换关系：
+    \(\displaystyle \dot{q}_i = \sum_{j=1}^n \pdv{q_i}{Q_j} \dot{Q}_j + \pdv{q_i}{t} \)
+    
+    原始坐标下的欧拉-拉格朗日方程：
+    \(\displaystyle \pdv{L}{q_i} - \partial_t \left( \pdv{L}{\dot{q}_i} \right) = 0 \)
+    
+    变换后坐标下的欧拉-拉格朗日方程：
+    \(\displaystyle \pdv{\tilde{L}}{Q_i} - \partial_t \left( \pdv{\tilde{L}}{\dot{Q}_i} \right) = 0 \)
+    
+    拉格朗日量对 \( q_i \) 的偏导数：
+    \(\displaystyle \pdv{L}{q_i} = \sum_{j=1}^n \pdv{\tilde{L}}{Q_j} \pdv{Q_j}{q_i} \)
+    
+    拉格朗日量对 \(\dot{q}_i\) 的偏导数：
+    \(\displaystyle \pdv{L}{\dot{q}_i} = \sum_{j=1}^n \pdv{\tilde{L}}{\dot{Q}_j} \pdv{\dot{Q}_j}{\dot{q}_i} \)
 
+    由于：
+    \(\displaystyle \pdv{\dot{Q}_j}{\dot{q}_i} = \pdv{Q_j}{q_i}\qquad \)
+    因此：
+    \(\displaystyle \pdv{L}{\dot{q}_i} = \sum_{j=1}^n \pdv{\tilde{L}}{\dot{Q}_j} \pdv{Q_j}{q_i} \)
 
+将上述结果代入原始坐标下的欧拉-拉格朗日方程：
+\[
+\sum_{j=1}^n \pdv{\tilde{L}}{Q_j} \pdv{Q_j}{q_i} - \partial_t \left( \sum_{j=1}^n \pdv{\tilde{L}}{\dot{Q}_j} \pdv{Q_j}{q_i} \right) = 0
+\]
 
-
-
+由于 \(\pdv{Q_j}{q_i}\) 不显含时间：
+\begin{gather*}
+\sum_{j=1}^n \left( \pdv{\tilde{L}}{Q_j} - \partial_t \left( \pdv{\tilde{L}}{\dot{Q}_j} \right) \right) \pdv{Q_j}{q_i} = 0
+\\
+\pdv{\tilde{L}}{Q_j} - \partial_t \left( \pdv{\tilde{L}}{\dot{Q}_j} \right) = 0
+\end{gather*}
+\end{add}
+\begin{thm}
+    \begin{enumerate}
+        \item 若\(\displaystyle L=\dv{K}{t}\)，则
+        \(\displaystyle \frac{\delta L}{\delta q_\alpha}=0\)
+        \item 若\(\displaystyle \frac{\delta L}{\delta q_\alpha}=0\;\forall \alpha=1,\cdots,k\)，
+        则存在\(K\) ，使得\(L = \dv{K}{t}\)
+    \end{enumerate}
+\end{thm}
+\begin{add}
+    物理的理论力学书的证明
+    \[L'(q, \dot{q}, t) = L(q, \dot{q}, t) + \frac{df(q, t)}{dt}\]
+    \begin{gather*}
+        S = \int_{t_1}^{t_2} L(q, \dot{q}, t) \, dt \\
+        S' = \int_{t_1}^{t_2} L'(q, \dot{q}, t) \, dt 
+        = \int_{t_1}^{t_2} L(q, \dot{q}, t) \, dt + \int_{t_1}^{t_2} \frac{df(q, t)}{dt} \, dt \\
+        \int_{t_1}^{t_2} \frac{df(q, t)}{dt} \, dt = f(q(t_2), t_2) - f(q(t_1), t_1) \\
+        S' = S + f(q(t_2), t_2) - f(q(t_1), t_1) \qquad
+        \delta S' = \delta S
+    \end{gather*}
+\end{add}
 
 
 
