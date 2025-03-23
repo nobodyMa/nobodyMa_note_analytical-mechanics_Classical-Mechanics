@@ -392,7 +392,7 @@ TM = \bigcup_{p \in M} T_p M
 =\boxed{2\pdv{\dot{\tilde{q_\alpha}}}{q_\beta}}
 \end{align*}  
 \end{defn}
-\begin{proposition}
+\begin{proposition}\label{拉氏量对广义坐标求导}
     记\(q_{\alpha,s}\left(\dv{t}\right)^s\left(q_\alpha(t)\right)\)
     \(\tilde{q}_{\alpha,s}\left(\dv{t}\right)^s\left(\tilde{q_\alpha}(t)\right)\)
     ，问题\(\displaystyle
@@ -1231,37 +1231,42 @@ x = \frac{1}{2k} (\theta - \sin \theta) + C.
 \end{itemize}
 \end{example}
 \section{变分导数的进一步讨论}
-\begin{align*}
-    S(q)&=\int_{t_0}^{t_1}\left(q(t),q'(t)\cdots q^{(s)}(t)\right)\,dt\\
-    S(q + h) - S(q) &= \int_{t_0}^{t_1} L(q + h, q' + h', \dots, q^{(s)} + h^{(s)}) \, dt 
-    - \int_{t_0}^{t_1} L(q, q', \dots, q^{(s)}) \, dt \\
-    &= \int_{t_0}^{t_1} \left( L(q + h, q' + h', \dots, q^{(s)} + h^{(s)}) 
-    - L(q, q', \dots, q^{(s)}) \right) \, dt \\
-    &= \int_{t_0}^{t_1} \left( \pdv{L}{q} h + \pdv{L}{q'} h' + \pdv{L}{q''} h'' 
-    + \cdots + \pdv{L}{q^{(s)}} h^{(s)} + \omicron(h) \right) \, dt \\
-    &= \int_{t_0}^{t_1} \left( \pdv{L}{q} h + \pdv{L}{q'} \dv{h}{t} 
-    + \pdv{L}{q''} \dv[2]{h}{t} + \cdots + \pdv{L}{q^{(s)}} \dv[s]{h}{t} 
-    + \omicron(h) \right) \, dt \\
-    &= \int_{t_0}^{t_1} \pdv{L}{q} h \, dt 
-    + \left( \left. \pdv{L}{q'} h \right|_{t_0}^{t_1} 
-    - \int_{t_0}^{t_1} \dv{t} \left( \pdv{L}{q'} \right) h \, dt \right) \\
-&\quad + \left( \left. \pdv{L}{q''} \dv{h}{t} \right|_{t_0}^{t_1} 
-- \int_{t_0}^{t_1} \dv{t} \left( \pdv{L}{q''} \right) \dv{h}{t} \, dt \right) \\
-&\quad + \cdots \\
-&\quad + \left( \left. \pdv{L}{q^{(s)}} \dv[s-1]{h}{t} \right|_{t_0}^{t_1} 
-- \int_{t_0}^{t_1} \dv{t} \left( \pdv{L}{q^{(s)}} \right) \dv[s-1]{h}{t} \, dt \right) 
-+ \int_{t_0}^{t_1} \omicron(h) \, dt \\
-&=\int_{t_0}^{t_1}\left(\left(
-    \frac{\pa L}{\pa q}-\dv{t}\left(\frac{\pa L}{\pa q'}\right)
-    +\dv[2]{t}\left(\frac{\pa L}{\pa q''}\right)+\cdots+\left(-\dv{t}\right)\frac{\pa L}{\pa q^{(s)}}
-\right)
-h+\omicron(\cdots)\right)\,dt\\
-\frac{\delta L}{\delta q_\alpha}&=
-\sum_{p \geq 0}\left(-\dv{t}\right)^p
-\left(\frac{\pa L}{\pa q_\alpha^{(p)}}\right)=
-\sum_{p \geq 0}\left(-\dv{t}\right)^p
-\left(\frac{\pa L}{\pa q_{\alpha,p}}\right)
-\end{align*}
+\begin{example}
+    用变分法证明命题\ref{拉氏量对广义坐标求导}
+    \begin{proof}
+    \begin{align*}
+        S(q)&=\int_{t_0}^{t_1}\left(q(t),q'(t)\cdots q^{(s)}(t)\right)\,dt\\
+        S(q + h) - S(q) &= \int_{t_0}^{t_1} L(q + h, q' + h', \dots, q^{(s)} + h^{(s)}) \, dt 
+        - \int_{t_0}^{t_1} L(q, q', \dots, q^{(s)}) \, dt \\
+        &= \int_{t_0}^{t_1} \left( L(q + h, q' + h', \dots, q^{(s)} + h^{(s)}) 
+        - L(q, q', \dots, q^{(s)}) \right) \, dt \\
+        &= \int_{t_0}^{t_1} \left( \pdv{L}{q} h + \pdv{L}{q'} h' + \pdv{L}{q''} h'' 
+        + \cdots + \pdv{L}{q^{(s)}} h^{(s)} + \omicron(h) \right) \, dt \\
+        &= \int_{t_0}^{t_1} \left( \pdv{L}{q} h + \pdv{L}{q'} \dv{h}{t} 
+        + \pdv{L}{q''} \dv[2]{h}{t} + \cdots + \pdv{L}{q^{(s)}} \dv[s]{h}{t} 
+        + \omicron(h) \right) \, dt \\
+        &= \int_{t_0}^{t_1} \pdv{L}{q} h \, dt 
+        + \left( \left. \pdv{L}{q'} h \right|_{t_0}^{t_1} 
+        - \int_{t_0}^{t_1} \dv{t} \left( \pdv{L}{q'} \right) h \, dt \right) \\
+    &\quad + \left( \left. \pdv{L}{q''} \dv{h}{t} \right|_{t_0}^{t_1} 
+    - \int_{t_0}^{t_1} \dv{t} \left( \pdv{L}{q''} \right) \dv{h}{t} \, dt \right) \\
+    &\quad + \cdots \\
+    &\quad + \left( \left. \pdv{L}{q^{(s)}} \dv[s-1]{h}{t} \right|_{t_0}^{t_1} 
+    - \int_{t_0}^{t_1} \dv{t} \left( \pdv{L}{q^{(s)}} \right) \dv[s-1]{h}{t} \, dt \right) 
+    + \int_{t_0}^{t_1} \omicron(h) \, dt \\
+    &=\int_{t_0}^{t_1}\left(\left(
+        \frac{\pa L}{\pa q}-\dv{t}\left(\frac{\pa L}{\pa q'}\right)
+        +\dv[2]{t}\left(\frac{\pa L}{\pa q''}\right)+\cdots+\left(-\dv{t}\right)\frac{\pa L}{\pa q^{(s)}}
+    \right)
+    h+\omicron(\cdots)\right)\,dt\\
+    \frac{\delta L}{\delta q_\alpha}&=
+    \sum_{p \geq 0}\left(-\dv{t}\right)^p
+    \left(\frac{\pa L}{\pa q_\alpha^{(p)}}\right)=
+    \sum_{p \geq 0}\left(-\dv{t}\right)^p
+    \left(\frac{\pa L}{\pa q_{\alpha,p}}\right)
+    \end{align*}
+\end{proof}
+\end{example}
 \begin{thm}
     欧拉-拉格朗日方程与广义坐标的选取无关
     \begin{yzh}
@@ -1362,8 +1367,8 @@ j
     \end{align*}
 \end{zhu}
 \end{thm}
-\begin{add}
-    物理的理论力学书上通常的证明过程
+\begin{zhu}
+    物理的理论力学书上常见的证明过程
 
     设广义坐标变换为：
     \(\displaystyle q_i = q_i(Q_1, Q_2, \dots, Q_n, t) \)
@@ -1373,12 +1378,12 @@ j
     
     广义速度的变换关系：
     \(\displaystyle \dot{q}_i = \sum_{j=1}^n \pdv{q_i}{Q_j} \dot{Q}_j + \pdv{q_i}{t} \)
-    
-    原始坐标下的欧拉-拉格朗日方程：
-    \(\displaystyle \pdv{L}{q_i} - \partial_t \left( \pdv{L}{\dot{q}_i} \right) = 0 \)
-    
-    变换后坐标下的欧拉-拉格朗日方程：
-    \(\displaystyle \pdv{\tilde{L}}{Q_i} - \partial_t \left( \pdv{\tilde{L}}{\dot{Q}_i} \right) = 0 \)
+    \begin{gather*}
+        \text{原始坐标下的欧拉-拉格朗日方程：}\quad
+        \pdv{L}{q_i} - \partial_t \left( \pdv{L}{\dot{q}_i} \right) = 0 \\    
+        \text{变换后坐标下的欧拉-拉格朗日方程：}\quad
+        \pdv{\tilde{L}}{Q_i} - \partial_t \left( \pdv{\tilde{L}}{\dot{Q}_i} \right) = 0 
+    \end{gather*}
     
     拉格朗日量对 \( q_i \) 的偏导数：
     \(\displaystyle \pdv{L}{q_i} = \sum_{j=1}^n \pdv{\tilde{L}}{Q_j} \pdv{Q_j}{q_i} \)
@@ -1396,23 +1401,24 @@ j
 \sum_{j=1}^n \pdv{\tilde{L}}{Q_j} \pdv{Q_j}{q_i} - \partial_t \left( \sum_{j=1}^n \pdv{\tilde{L}}{\dot{Q}_j} \pdv{Q_j}{q_i} \right) = 0
 \]
 
-由于 \(\pdv{Q_j}{q_i}\) 不显含时间：
+由于 \(\displaystyle \pdv{Q_j}{q_i}\) 不显含时间：
 \begin{gather*}
 \sum_{j=1}^n \left( \pdv{\tilde{L}}{Q_j} - \partial_t \left( \pdv{\tilde{L}}{\dot{Q}_j} \right) \right) \pdv{Q_j}{q_i} = 0
 \\
 \pdv{\tilde{L}}{Q_j} - \partial_t \left( \pdv{\tilde{L}}{\dot{Q}_j} \right) = 0
 \end{gather*}
-\end{add}
+\end{zhu}
 \begin{thm}
+    \mbox{}
     \begin{enumerate}
         \item 若\(\displaystyle L=\dv{K}{t}\)，则
         \(\displaystyle \frac{\delta L}{\delta q_\alpha}=0\)
         \item 若\(\displaystyle \frac{\delta L}{\delta q_\alpha}=0\;\forall \alpha=1,\cdots,k\)，
-        则存在\(K\) ，使得\(L = \dv{K}{t}\)
+        则存在\(K\) ，使得\(\displaystyle L = \dv{K}{t}\)
     \end{enumerate}
 \end{thm}
-\begin{add}
-    物理的理论力学书的证明
+\begin{zhu}
+    物理的理论力学书上证明(拉格朗日量加上一个全导数项不会改变系统的运动方程，因为作用量的变分不变。)
     \[L'(q, \dot{q}, t) = L(q, \dot{q}, t) + \frac{df(q, t)}{dt}\]
     \begin{gather*}
         S = \int_{t_1}^{t_2} L(q, \dot{q}, t) \, dt \\
@@ -1422,10 +1428,103 @@ j
         S' = S + f(q(t_2), t_2) - f(q(t_1), t_1) \qquad
         \delta S' = \delta S
     \end{gather*}
-\end{add}
-
-
-
+\end{zhu}
+\begin{thm}
+    \mbox{}
+    \begin{enumerate}
+        \item 设\(\displaystyle f_\alpha=\frac{\delta L}{\delta q_\alpha}\)，则
+        \[\frac{\pa f_\alpha}{q_{\beta,s}}=\sum_{t\geq 0}
+        (-1)^{s+t}\begin{pmatrix}
+            s+t\\
+            t
+        \end{pmatrix}\pa^t\frac{\pa f_\beta}{\pa q_{\alpha,s+t}}
+        \quad\forall\;\alpha,\beta=1,\cdots,k \;,\;\forall\;s\geq 0
+        \]
+        \item 若一组函数\(f_\alpha\)满足上式，则存在\(L\)，使得\(f_\alpha=\frac{\delta L}{\delta q_\alpha}\)
+    \end{enumerate}
+\end{thm}
+\begin{example}
+    在伽利略时空中的自由粒子
+    \begin{gather*}
+        L_q=T=\frac{1}{2}m\sum_{\alpha=1}^{n}(\dot{q}_\alpha)^2\\
+        \text{E-L eq. }\quad m \ddot{q}_\alpha=0\\
+        \text{伽利略变换}
+        \begin{cases}
+            q(u)=Au+Bt+C\\
+            \dot{q}=A\dot{u}+B
+        \end{cases}
+        \quad A\in O(n)\;,\;B\in \mathbb{R}^n\;,\; C\in \mathbb{R}^n
+    \end{gather*}
+    \begin{align*}
+        L_q&=\frac{1}{2}m\left(\dot{q}\right)^T\left(\dot{q}\right)
+        =\frac{1}{2}m\left(A\dot{u}+B\right)^T\left(A\dot{u}+B\right)
+        =\frac{1}{2}\bigg(\dot{u}^T \underbrace{A^T A}_{=I}\dot{u}
+        +B^T A\dot{u}+\dot{u}^T A^T B +B^T B\bigg)\\
+        &=L_u +\left(mB^T A \dot{u}+\frac{1}{2}m B^T B\right)
+        =L_u +\dv{t}\left(m B^T A u+ \frac{mB^TB}{2}t\right)
+    \end{align*}
+\end{example}
+\begin{thm}
+    若\(L=L(q,\dot{q},t)\)满足在任意伽利略变换下不变(相差一个\(\pa K\))，
+    则存在\(m\in \mathbb{R}\)，使得\(L=\frac{1}{2}m\dot{q}^2\)。
+\begin{proof}
+    \textbf{空间平移}
+    \begin{gather*}
+        (q,\dot{q},t)\mapsto(q+vt+q_0,\dot{q}+v,t+t_0),
+        \text{则存在}K=K(q,t)\\
+        L(q+vt+q_0,\dot{q}+v,t+t_0)-L(q,\dot{q},t)=\dv{K}{t}
+        =\frac{\pa K}{\pa t}+\sum_{\alpha=1}^{n}\frac{\pa K}{\pa q_\alpha}\dot{q}_\alpha\\
+        \because\;\pdv[2]{}{\dot{q}_\alpha}{\dot{q}_\beta}\left(\dv{K}{t}\right)=0
+        \quad \therefore \;\underbrace{L_{\dot{\alpha},\dot{\beta}}(q+vt+q_0,\dot{q}+v,t+t_0)
+        =L_{\dot{\alpha},\dot{\beta}}(q,\dot{q},t)}
+        _{\displaystyle L_{\dot{\alpha},\dot{\beta}}\equiv C} \\
+        \Rightarrow L=\frac{1}{2}\sum_{\alpha,\beta=1}^{n}
+        L_{\dot{\alpha},\dot{\beta}}\dot{q}_\alpha\dot{q}_\beta
+        +\sum_{\alpha=1}^{n}A_\alpha(q,t)\dot{q}_\alpha+B(q,t)\\
+        \begin{aligned}
+            \text{取}V=0\quad
+            &L(q+vt+q_0,\dot{q}+v,t+t_0)-L(q,\dot{q},t)\\
+            =&\frac{1}{2}\sum_{\alpha,\beta=1}^{n}
+            L_{\dot{\alpha},\dot{\beta}}\dot{q}_\alpha\dot{q}_\beta
+            +\sum_{\alpha=1}^{n}A_\alpha(q+q_0,t+t_0)\dot{q}_\alpha+B(q+q_0,t+t_0)\\
+            &-\left(\frac{1}{2}\sum_{\alpha,\beta=1}^{n}
+        L_{\dot{\alpha},\dot{\beta}}\dot{q}_\alpha\dot{q}_\beta
+        +\sum_{\alpha=1}^{n}A_\alpha(q,t)\dot{q}_\alpha+B(q,t)\right)\\
+        =&\sum_{\alpha=1}^{n}A_\alpha(q+q_0,t+t_0)\dot{q}_\alpha+B(q+q_0,t+t_0)
+        -\sum_{\alpha=1}^{n}A_\alpha(q,t)\dot{q}_\alpha-B(q,t)\\
+        =&\frac{\pa K}{\pa t}+\sum_{\alpha=1}^{n}\frac{\pa K}{\pa q_\alpha}\dot{q}_\alpha\\
+        \Rightarrow&\quad\sum_{\alpha=1}^{n}A_\alpha(q+q_0,t+t_0)
+        -\sum_{\alpha=1}^{n}A_\alpha(q,t)=\sum_{\alpha=1}^{n}\frac{\pa K}{\pa q_\alpha}\\
+        &
+        \begin{aligned}
+            \Rightarrow\sum_{\alpha=1}^{n}\frac{pa A_\alpha}{\pa q_\beta}(q+q_0,t+t_0)
+            -\sum_{\alpha=1}^{n}\frac{\pa A_\alpha}{\pa q_\beta}(q,t)
+            &=\sum_{\alpha=1}^{n}\frac{\pa^2 K}{\pa q_\alpha \pa q_\beta}\\
+            &=\sum_{\beta=1}^{n}\frac{pa A_\beta}{\pa q_\alpha}(q+q_0,t+t_0)
+            -\sum_{\beta=1}^{n}\frac{\pa A_\beta}{\pa q_\alpha}(q,t)
+        \end{aligned}\\
+        &\Rightarrow\boxed{\frac{\pa A_\alpha}{\pa q_\beta}-\frac{\pa A_\beta}{q_\alpha}\equiv C}\\
+        \Rightarrow&\quad
+            \begin{aligned}
+                &B(q+q_0,t+t_0)-B(q,t)=\frac{\pa K}{\pa t}\\
+                &\sum_{\alpha=1}^{n}A_\alpha(q+q_0,t+t_0)
+                -\sum_{\alpha=1}^{n}A_\alpha(q,t)=\sum_{\alpha=1}^{n}\frac{\pa K}{\pa q_\alpha}
+            \end{aligned}\\
+        &\Rightarrow\boxed{\frac{\pa A_\alpha}{\pa t}-\frac{\pa B}{\pa q_\alpha}\equiv C}
+        \end{aligned}
+    \end{gather*}
+    \textbf{空间反演}
+    \begin{gather*}
+        q\mapsto-q,\dot{q}\mapsto-\dot{q}\\
+        L(-q,-\dot{q},t)=L(q,\dot{q},t)+\dv{K}{t}\\
+        \text{取}\tilde{L}=\frac{1}{2}\left(L(q,\dot{q})+L(-q,-\dot{q})\right)
+        =L(q,\dot{q})+\pa \left(\frac{1}{2}K\right),\tilde{L}\text{与}L\text{等价}\\
+        \text{同理}L=\frac{1}{2}\sum_{\alpha,\beta=1}^{n}
+        L_{\dot{\alpha},\dot{\beta}}\dot{q}_\alpha\dot{q}_\beta
+        +\sum_{\alpha=1}^{n}A_\alpha(q,t)\dot{q}_\alpha+B(q,t)\\
+    \end{gather*}
+\end{proof}
+\end{thm}
 
 
 
