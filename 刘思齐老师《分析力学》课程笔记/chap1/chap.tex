@@ -1113,7 +1113,7 @@ y(0) = 0, \quad y(1) = 1.
 \end{gather*}
 \end{example}
 \begin{example}
-电磁场的(不会起名了)
+电磁场中带电粒子
     
     考虑 \(\mathbb{R}^3\) 中的拉格朗日量：
     \[
@@ -1497,10 +1497,10 @@ j
         -\sum_{\alpha=1}^{n}A_\alpha(q,t)=\sum_{\alpha=1}^{n}\frac{\pa K}{\pa q_\alpha}\\
         &
         \begin{aligned}
-            \Rightarrow\sum_{\alpha=1}^{n}\frac{pa A_\alpha}{\pa q_\beta}(q+q_0,t+t_0)
-            -\sum_{\alpha=1}^{n}\frac{\pa A_\alpha}{\pa q_\beta}(q,t)
-            &=\sum_{\alpha=1}^{n}\frac{\pa^2 K}{\pa q_\alpha \pa q_\beta}\\
-            &=\sum_{\beta=1}^{n}\frac{pa A_\beta}{\pa q_\alpha}(q+q_0,t+t_0)
+            \Rightarrow\quad&\sum_{\alpha=1}^{n}\frac{pa A_\alpha}{\pa q_\beta}(q+q_0,t+t_0)
+            -\sum_{\alpha=1}^{n}\frac{\pa A_\alpha}{\pa q_\beta}(q,t)\\
+            =&\sum_{\alpha=1}^{n}\frac{\pa^2 K}{\pa q_\alpha \pa q_\beta}
+            =\sum_{\beta=1}^{n}\frac{pa A_\beta}{\pa q_\alpha}(q+q_0,t+t_0)
             -\sum_{\beta=1}^{n}\frac{\pa A_\beta}{\pa q_\alpha}(q,t)
         \end{aligned}\\
         &\Rightarrow\boxed{\frac{\pa A_\alpha}{\pa q_\beta}-\frac{\pa A_\beta}{q_\alpha}\equiv C}\\
@@ -1527,9 +1527,137 @@ j
 \end{thm}
 
 
+\begin{example}
+    膜振动
+    \(\Omega=\{(x,y)\in \mathbb{R}^2| x^2+y^2\leq 1\}\;,\; u(x,y,t)\)
+    \begin{gather*}
+        T=\int_\Omega\frac{1}{2}\rho \left(\frac{\pa u}{\pa t}\right)^2\,dxdy\qquad
+        U=\int_\Omega k\left(\sqrt{1+\left(\frac{\pa u}{\pa x}\right)^2+\left(\frac{\pa u}{\pa y}\right)^2}-1\right)\,dxdy\\
+        L=\int_\Omega\bigg(\underbrace{\frac{1}{2}\rho \left(\frac{\pa u}{\pa t}\right)^2+
+        k\sqrt{1+\left(\frac{\pa u}{\pa x}\right)^2+\left(\frac{\pa u}{\pa y}\right)^2}}
+        _{\displaystyle \mathtt{X}}-k\bigg)\,dxdy\qquad\\
+        \begin{aligned}
+            \frac{\delta L}{\delta u}&=\frac{\pa \mathtt{X}}{\pa u}-\dv{t}\frac{\pa \mathtt{X}}{\pa u_{,t}}
+            -\dv{x}\frac{\pa \mathtt{X}}{\pa u_{,x}}-\dv{y}\frac{\pa \mathtt{X}}{\pa y}\\
+            &=0-\rho u_{,tt}+k\left(\bigg(\frac{u_{,x}}{\sqrt{1+u_{,x}^2+u_{,y}^2}}\bigg)_{\displaystyle ,x}
+            +\bigg(\frac{u_{,y}}{\sqrt{1+u_{,x}^2+u_{,y}^2}}\bigg)_{\displaystyle ,y} \right)=0
+        \end{aligned}\\
+        \text{微振动} u=\varepsilon v \quad\Rightarrow\quad \rho v_{,tt}=k(v_{,xx}+v_{,yy})+\omicron(\varepsilon)
+    \end{gather*}
+\end{example}
+    \begin{add}
+        弦振动
+    \(\Omega = [0, L] \subset \mathbb{R}\;,\; u(x, t)\)
+    \begin{gather*}
+        T = \int_0^L \frac{1}{2}\rho \left(\frac{\partial u}{\partial t}\right)^2 dx \qquad
+        U = \int_0^L k\left(\sqrt{1 + \left(\frac{\partial u}{\partial x}\right)^2} - 1\right) dx \\
+        L = \int_0^L \bigg(\underbrace{\frac{1}{2}\rho \left(\frac{\partial u}{\partial t}\right)^2 + k\sqrt{1 + \left(\frac{\partial u}{\partial x}\right)^2}}_{\displaystyle \mathtt{Y}} - k \bigg) dx \\
+        \begin{aligned}
+            \frac{\delta L}{\delta u} &= \frac{\partial \mathtt{Y}}{\partial u} - \frac{d}{dt}\frac{\partial \mathtt{Y}}{\partial u_{,t}} - \frac{d}{dx}\frac{\partial \mathtt{Y}}{\partial u_{,x}} \\
+            &= 0 - \rho u_{,tt} + k \frac{d}{dx}\bigg(\frac{u_{,x}}{\sqrt{1 + u_{,x}^2}}\bigg) = 0
+        \end{aligned} \\
+        \text{微振动} \quad u = \varepsilon v \quad \Rightarrow\quad \rho v_{,tt} = k v_{,xx} + \omicron(\varepsilon)
+    \end{gather*}
+    \end{add}
+    %示意图
+    \begin{center}
+        \begin{minipage}[t]{0.98\linewidth}
+        \centering
+        \begin{tikzpicture}[scale=1.2]
+            % 圆形膜Ω的范围
+            \draw[fill=blue!10] (0,0) circle (1);
+            \draw[dashed, thick] (0,0) circle (1);
+            \node at (1,1) {$\Omega$};
+            
+            % 坐标轴
+            \draw[->] (-1.5,0) -- (1.5,0) node[below,right]{$x$};
+            \draw[->] (0,-1.5) -- (0,1.5) node[above,left]{$y$};
+            \node[below] at (0,-1.7) {(a) 圆形膜};
+        \end{tikzpicture}
+        \hfil
+        \begin{tikzpicture}[scale=1.2]
+            % 圆形膜Ω的范围
+            \draw[dashed, thick] (0,0) ellipse [x radius=1, y radius=0.5];
+            \node at (1,0.7) {$\Omega$};
+            
+            % 坐标轴
+            \draw[->] (-1.5,0) -- (1.5,0) node[below,right]{$(x,y)$};
+            \draw[->] (0,-1.5) -- (0,1.5) node[above,left]{$u$};
+            \node[below] at (0,-1.7) {(b) 膜振动};
+        \end{tikzpicture}
+        \hfil
+        \begin{tikzpicture}[scale=1.1]
+            % 坐标轴
+            \draw[->] (0,0) -- (4,0) node[below,right]{$x$};
+            \draw[->] (0,-1) -- (0,1) node[above,left]{$u$};
+            
+            % 弦的平衡位置
+            \draw[thick] (0,0) -- (3.5,0);
+            
+            % 振动后的弦
+            \draw[red, thick, smooth] plot[domain=0:3.5, samples=50] 
+                (\x, {0.4*sin(2*pi*\x r)});
+            
+            % 标记边界和振动
+        \draw[dashed] (0,0) -- (0,-1.3) node[below,align=center] {$x=0$\\（固定）};
+        \draw[dashed] (3.5,0) -- (3.5,-1.3) node[below,align=center] {$x=L$\\（固定）};
+        \node[red] at (1.7,0.6) {$u(x,t)$};
+            \node[below] at (1.75,-2.4) {(c) 弦振动};
+        \end{tikzpicture}
+        \end{minipage}
+    \end{center}
+
+
+\begin{example}
+    
+
+\end{example}
 
 
 
+
+
+\section{守恒律}
+
+
+
+
+
+
+
+
+\begin{lemma}
+    \begin{equation}
+        \frac{\partial}{\partial q_{\alpha,s+t}}\partial 
+        = \partial\frac{\partial}{\partial q_{\alpha,s+t}} 
+        + \frac{\partial}{\partial q_{\alpha,s+t-1}}
+    \end{equation}
+    \begin{proof}
+        任取光滑函数$L(q_\alpha,q_{\alpha,1},\cdots)$，计算：
+        
+        1. 左式作用：
+        \begin{align*}
+        \left(\frac{\partial}{\partial q_{\alpha,s+t}}\partial\right)L 
+        &= \frac{\partial}{\partial q_{\alpha,s+t}}\left(\sum_{k=0}^\infty \frac{\partial L}{\partial q_{\alpha,k}}q_{\alpha,k+1}\right) \\
+        &= \sum_{k=0}^\infty \frac{\partial^2 L}{\partial q_{\alpha,s+t}\partial q_{\alpha,k}}q_{\alpha,k+1} 
+        + \frac{\partial L}{\partial q_{\alpha,s+t-1}}
+        \end{align*}
+        
+        2. 右式作用：
+        \begin{align*}
+        \left(\partial\frac{\partial}{\partial q_{\alpha,s+t}} 
+        + \frac{\partial}{\partial q_{\alpha,s+t-1}}\right)L 
+        &= \sum_{k=0}^\infty \frac{\partial^2 L}{\partial q_{\alpha,k}\partial q_{\alpha,s+t}}q_{\alpha,k+1} 
+        + \frac{\partial L}{\partial q_{\alpha,s+t-1}}
+        \end{align*}
+        
+        由于偏导数可交换：
+        \[
+        \frac{\partial^2}{\partial q_{\alpha,s+t}\partial q_{\alpha,k}}
+        = \frac{\partial^2}{\partial q_{\alpha,k}\partial q_{\alpha,s+t}}
+        \]
+    \end{proof} 
+\end{lemma}   
 
 
 
